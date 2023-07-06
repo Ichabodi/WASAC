@@ -22,7 +22,7 @@ input[type=text], input[type=password]
 }
 button 
 {
-    background-color:lightseagreen;
+    background-color:dimgrey;
     color: white;
     padding: 14px 20px;
     border-radius: 5px;
@@ -36,7 +36,7 @@ button
 
 button:hover 
 {
-    background-color:rgb(22, 50, 46);
+    background-color:darkslategray;
     cursor: pointer;
 }
 form
@@ -92,7 +92,7 @@ form
     <option disabled selected>-- Select Department </option>
     <?php
         include "connection.php";  // Using database connection file here
-        $records = mysqli_query($con, "SELECT depID, depName From departements");  // Use select query here 
+        $records = mysqli_query($con, "SELECT depID, depName From depertements");  // Use select query here 
         while($row = mysqli_fetch_array($records))
         {
             //echo "<option value='". $row['depID'] ."'>" .$row['depName'] ."</option>";  // displaying data in option menu
@@ -105,13 +105,31 @@ form
     ?>  
   </select>
 
+  <br><br>
+  <label for="manID" >Select manager:</label>
+  <select name="manID">
+    <option disabled selected>-- Select manager </option>
+    <?php
+        include "connection.php";  // Using database connection file here
+        $records = mysqli_query($con, "SELECT manID, name From manager");  // Use select query here 
+        while($row = mysqli_fetch_array($records))
+        {
+            //echo "<option value='". $row['depID'] ."'>" .$row['depName'] ."</option>";  // displaying data in option menu
+            echo "<option value='". $row['manID'] ."'>" /*.$row['depID'] ."|
+            "*/. $row['name'] ."</option>"; 
+            //$divId=$row['depID'];
+            //echo $divId;
+           
+        }   
+    ?>  
+  </select>
+
 <br><br>
 <label for="divName">Enter division Name</label>
 <input type="text" placeholder="Enter division Name" name="divName" required>
 <br><br>  
         
-<button type="submit"><i>register</i></button>
-<p class="register">Already have an account?!<a href="login.php"><b>Get in</b></a></p>
+<button type="submit"><i>SAVE</i></button>
 </div>
 </form>
 </body>

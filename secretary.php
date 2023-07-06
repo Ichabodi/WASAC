@@ -81,7 +81,7 @@ form
     }
   }
    </style>
-<title>Secreatry page</title>
+<title>Secretary entry</title>
 </head>
 <body>
 <form action="secretary1.php" method="POST">
@@ -96,7 +96,7 @@ form
 <input type="password" placeholder="Enter the password" name="password" required>
 <br><br>          
 <button type="submit"><i>register</i></button>
-<p class="register">Already have an account?!<a href="login.php"><b>Get in</b></a></p>
+
 </div>
 </form>
 </body>

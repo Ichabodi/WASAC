@@ -23,7 +23,7 @@ input[type=text], input[type=password]
 }
 button 
 {
-    background-color:lightseagreen;
+    background-color:dimgrey;
     color: white;
     padding: 14px 20px;
     border-radius: 5px;
@@ -109,8 +109,7 @@ form
 <input type="text" placeholder="Enter unit Name" name="UnitName" required>
 <br><br>  
         
-<button type="submit"><i>register</i></button>
-<p class="register">Already have an account?!<a href="login.php"><b>Get in</b></a></p>
+<button type="submit"><i>SAVE</i></button>
 </div>
 </form>
 </body>

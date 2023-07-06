@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2023 at 10:43 PM
+-- Generation Time: Mar 14, 2023 at 01:52 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -35,13 +35,6 @@ CREATE TABLE `admin` (
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`authID`, `Fname`, `Lname`, `username`, `email`, `password`) VALUES
-(1, 'MWIZERWA', 'Constantin', 'ikabodiemelyne3@gmail.com', '', 'Constantin1');
 
 -- --------------------------------------------------------
 
@@ -214,7 +207,7 @@ INSERT INTO `country` (`CID`, `Cname`) VALUES
 --
 
 CREATE TABLE `departements` (
-  `depID` int(255) NOT NULL,
+  `depID` varchar(255) NOT NULL,
   `depName` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -223,12 +216,14 @@ CREATE TABLE `departements` (
 --
 
 INSERT INTO `departements` (`depID`, `depName`) VALUES
-(1, 'ULK'),
-(2, 'UNILAK'),
-(3, 'UNIVERSITY OF KIGALI'),
-(4, 'UNIVERSITE DE KIGALI'),
-(5, 'DOF'),
-(6, 'SPUI');
+('CEO', 'CHIEF EXECUTIVE OFFICER'),
+('DCS', 'DIRECTORATE COMMERCIAL SERVICES'),
+('DOF', 'DIRECTORATE OF FINANCE'),
+('DSS', 'DIRECTORATE SUPPORT SERVICES'),
+('DUWAS', 'DIRECTORATE URBAN WATER AND SEWERAGE'),
+('DWASDS', 'DIRECTORATE WATER AND SANITATION DEVELOPMENT SERVICES'),
+('RWSS', 'RURAL WATER SUPPLY SERVICES'),
+('SPIU', 'SINGLE PROJECT IMPLEMENTATION UNIT');
 
 -- --------------------------------------------------------
 
@@ -237,19 +232,38 @@ INSERT INTO `departements` (`depID`, `depName`) VALUES
 --
 
 CREATE TABLE `division` (
-  `divID` int(100) NOT NULL,
+  `divID` varchar(255) NOT NULL,
   `divName` varchar(255) NOT NULL,
-  `depID` int(255) NOT NULL
+  `depID` varchar(255) NOT NULL,
+  `manager` varchar(255) NOT NULL,
+  `freeOccupation` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `division`
 --
 
-INSERT INTO `division` (`divID`, `divName`, `depID`) VALUES
-(7, 'IT', 1),
-(10, 'SUPPORT', 5),
-(11, 'management', 2);
+INSERT INTO `division` (`divID`, `divName`, `depID`, `manager`, `freeOccupation`) VALUES
+('CEO01', 'corporate planning and strategy', 'CEO', '', 0),
+('CEO02', 'internal auditor', 'CEO', '', 0),
+('CEO03', 'comp sec', 'CEO', '', 0),
+('CEO04', 'legal advisory', 'CEO', '', 0),
+('DCS01', 'manager billing and revenue collection', 'DCS', '', 0),
+('DCS02', 'manager marketing and customer care', 'DCS', '', 0),
+('DOF01', 'financial contr. utility', 'DOF', '', 0),
+('DOF02', 'management accountant', 'DOF', '', 0),
+('DOF03', 'head of project fin management', 'DOF', '', 0),
+('DSS01', 'HRM', 'DSS', '', 0),
+('DSS02', 'procurement management', 'DSS', '', 0),
+('DSS03', 'IT', 'DSS', '', 0),
+('DSS04', 'ADM & LOG', 'DSS', '', 0),
+('DUWS01', 'water operations manager', 'DUWS', '', 0),
+('DUWS02', 'sewerage operations manager', 'DUWS', '', 0),
+('DUWS03', 'water production manager', 'DUWS', '', 0),
+('DUWS04', 'non-revenue water manager', 'DUWS', '', 0),
+('DUWS05', 'quality assurance', 'DUWS', '', 0),
+('DWASDS01', 'manager of water and sanitation infrastracture planning', 'DSS', '', 0),
+('SPIU01', 'SPIU coordinator', 'SPIU', '', 0);
 
 -- --------------------------------------------------------
 
@@ -258,16 +272,17 @@ INSERT INTO `division` (`divID`, `divName`, `depID`) VALUES
 --
 
 CREATE TABLE `identity` (
+  `internID` int(11) NOT NULL,
   `ID` int(16) NOT NULL,
   `Fname` varchar(50) NOT NULL,
   `Lname` varchar(50) NOT NULL,
-  `password_hash` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `phone` int(10) NOT NULL,
   `birthdate` date NOT NULL,
   `gender` varchar(10) NOT NULL,
-  `country` varchar(30) NOT NULL,
-  `InternID` int(16) NOT NULL
+  `country` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -278,64 +293,15 @@ CREATE TABLE `identity` (
 
 CREATE TABLE `internrequest` (
   `ReqID` int(11) NOT NULL,
-  `InternID` int(16) NOT NULL,
-  `FieldOfStudy` varchar(255) NOT NULL,
+  `ID` int(16) NOT NULL,
   `educationLevel` varchar(255) NOT NULL,
-  `Instutition` varchar(255) NOT NULL,
-  `UnitOfInterest` varchar(255) NOT NULL,
-  `appLetter` blob NOT NULL,
-  `ToWhom` blob NOT NULL,
-  `healthInsu` blob NOT NULL,
-  `PropertyInsu` blob NOT NULL,
-  `DateOfApp` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `login`
---
-
-CREATE TABLE `login` (
-  `LogID` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password_hash` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `manager`
---
-
-CREATE TABLE `manager` (
-  `manID` int(100) NOT NULL,
-  `Names` varchar(255) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `manager`
---
-
-INSERT INTO `manager` (`manID`, `Names`, `email`, `password`) VALUES
-(1, 'Emma ISHIMWE', 'ishimwe3@gmail.com', '1234'),
-(2, 'Emma ISHIMWE', 'ishimwe3@gmail.com', 'weeeeee'),
-(3, 'eme gana', 'ichabolyne3@gmail.com', '4321');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `secretary`
---
-
-CREATE TABLE `secretary` (
-  `SecID` int(255) NOT NULL,
-  `fullName` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `Instutution` varchar(255) NOT NULL,
+  `divisionOfInterest` varchar(255) NOT NULL,
+  `fieldOfStudy` varchar(255) NOT NULL,
+  `ToWhom` varchar(255) NOT NULL,
+  `appLetter` varchar(255) NOT NULL,
+  `propertyInsurance` varchar(255) NOT NULL,
+  `healthInsurance` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -345,30 +311,57 @@ CREATE TABLE `secretary` (
 --
 
 CREATE TABLE `units` (
-  `UnitID` int(100) NOT NULL,
-  `divID` int(255) NOT NULL,
-  `UnitName` varchar(255) NOT NULL
+  `UnitID` varchar(255) NOT NULL,
+  `DivID` varchar(255) NOT NULL,
+  `DepID` varchar(10) NOT NULL,
+  `UnitName` varchar(255) NOT NULL,
+  `HeadOfUnit` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `units`
 --
 
-INSERT INTO `units` (`UnitID`, `divID`, `UnitName`) VALUES
-(1, 7, 'sd'),
-(2, 10, 'management'),
-(3, 10, 'management'),
-(4, 10, 'Software development'),
-(5, 10, 'Software development'),
-(6, 10, 'Software development'),
-(7, 10, 'Software development'),
-(8, 10, 'management'),
-(9, 10, 'management'),
-(10, 10, 'management'),
-(11, 10, 'management'),
-(12, 10, 'management'),
-(13, 10, 'management'),
-(14, 10, 'management');
+INSERT INTO `units` (`UnitID`, `DivID`, `DepID`, `UnitName`, `HeadOfUnit`) VALUES
+('BUS', 'DSS03', 'DSS', 'business', ''),
+('CDPM', 'DSS01', 'DSS', 'carrier devrlopment and performance management', ''),
+('CM', '', 'RWSS', 'community mobilization', ''),
+('DWM', '', 'RWSS', 'delegated water management', ''),
+('GS', 'DSS04', 'DSS', 'general store', ''),
+('HB', 'DCS01', 'DCS', 'head of billing', ''),
+('HBA', 'CEO01', 'CEO', 'head of business analysis and planning', ''),
+('HD', 'DUWAS01', 'DUWAS', 'head of design(zoning and mapping)', ''),
+('HEW', 'DUWAS01', 'DUWAS', 'head of extension works', ''),
+('HGM', 'DUWAS03', 'DUWAS', 'head general maintenance', ''),
+('HIR', '', 'DWASDS', 'head of investment and resources', ''),
+('HLDPM', 'DUWAS04', 'DUWAS', 'head leak detection and pressure mgt', ''),
+('HM', 'DCS01', 'DCS', 'head of matering', ''),
+('HME', 'CEO01', '', 'head of M & E', ''),
+('HOB', '', 'DCS', 'head of branch', ''),
+('HOCC', 'DCS02', 'DCS', 'head of call center', ''),
+('HOM', 'DCS02', 'DCS', 'head of marketing', ''),
+('HOPFM', '', 'DWASDS', 'head of project fin management', ''),
+('HORC', 'DCS01', 'DCS', 'head of revenue collection', ''),
+('HPFM', '', 'DOF', 'head of project fin management', ''),
+('HPR', '', 'CEO', 'head of public relation', ''),
+('HPUO', 'DSS02', 'DSS', 'head of procurement for utility operations', ''),
+('HSAC', 'DUWAS05', 'DUWAS', 'head standards and control', ''),
+('HSCL', 'DUWAS05', 'DUWAS', 'head sanitation central laboratory', ''),
+('HSO', 'DUWAS02', 'DUWAS', 'head sewer operations', ''),
+('HSP', 'DWSDS01', 'DWASDS', 'head of sanitation planning', ''),
+('HSW', 'DUWAS02', 'DUWAS', 'head sewer works', ''),
+('HTI', 'DUWAS04', 'DUWAS', 'head of thefty inspection', ''),
+('HWCL', 'DUWAS05', 'DUWAS', 'head water central laboratory', ''),
+('HWRS', 'DUWAS03', 'DUWAS', 'head of water resource mgt', ''),
+('HWSP', 'DWASDS01', 'DWASDS', 'head of water supply planning', ''),
+('hWTP', 'DUWAS03', 'DUWAS', 'head of WTPs(WTPs engineer)', ''),
+('IT', 'DSS03', 'DSS', 'IT infrastracture and support', ''),
+('LOG', 'DSS04', 'DSS', 'logistics and estatement', ''),
+('O&M', '', 'RWSS', 'operation and maintenance', ''),
+('PM', 'DSS01', 'DSS', 'personnel management', ''),
+('RRM', '', 'RWSS', 'rural resource mobilization', ''),
+('SM', 'DUWAS02', 'DUWAS', 'sewer maintenance', ''),
+('WDNM', 'DUWAS01', 'DUWAS', 'water distribution and network maintenance', '');
 
 --
 -- Indexes for dumped tables
@@ -396,47 +389,25 @@ ALTER TABLE `departements`
 -- Indexes for table `division`
 --
 ALTER TABLE `division`
-  ADD PRIMARY KEY (`divID`),
-  ADD KEY `depID` (`depID`);
+  ADD PRIMARY KEY (`divID`);
 
 --
 -- Indexes for table `identity`
 --
 ALTER TABLE `identity`
-  ADD PRIMARY KEY (`InternID`);
+  ADD PRIMARY KEY (`internID`);
 
 --
 -- Indexes for table `internrequest`
 --
 ALTER TABLE `internrequest`
-  ADD PRIMARY KEY (`ReqID`),
-  ADD KEY `InternID` (`InternID`);
-
---
--- Indexes for table `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`LogID`),
-  ADD KEY `email` (`email`);
-
---
--- Indexes for table `manager`
---
-ALTER TABLE `manager`
-  ADD PRIMARY KEY (`manID`);
-
---
--- Indexes for table `secretary`
---
-ALTER TABLE `secretary`
-  ADD PRIMARY KEY (`SecID`);
+  ADD PRIMARY KEY (`ReqID`);
 
 --
 -- Indexes for table `units`
 --
 ALTER TABLE `units`
-  ADD PRIMARY KEY (`UnitID`),
-  ADD KEY `divID` (`divID`);
+  ADD PRIMARY KEY (`UnitID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -446,77 +417,13 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `authID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `departements`
---
-ALTER TABLE `departements`
-  MODIFY `depID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `division`
---
-ALTER TABLE `division`
-  MODIFY `divID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `identity`
---
-ALTER TABLE `identity`
-  MODIFY `InternID` int(16) NOT NULL AUTO_INCREMENT;
+  MODIFY `authID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `internrequest`
 --
 ALTER TABLE `internrequest`
   MODIFY `ReqID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `login`
---
-ALTER TABLE `login`
-  MODIFY `LogID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `manager`
---
-ALTER TABLE `manager`
-  MODIFY `manID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `secretary`
---
-ALTER TABLE `secretary`
-  MODIFY `SecID` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `units`
---
-ALTER TABLE `units`
-  MODIFY `UnitID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `division`
---
-ALTER TABLE `division`
-  ADD CONSTRAINT `division_ibfk_3` FOREIGN KEY (`depID`) REFERENCES `departements` (`depID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `internrequest`
---
-ALTER TABLE `internrequest`
-  ADD CONSTRAINT `internrequest_ibfk_1` FOREIGN KEY (`InternID`) REFERENCES `identity` (`InternID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `units`
---
-ALTER TABLE `units`
-  ADD CONSTRAINT `units_ibfk_1` FOREIGN KEY (`divID`) REFERENCES `division` (`divID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

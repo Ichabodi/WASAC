@@ -13,10 +13,10 @@
         // username => root
         // password => empty
         // database name => staff
-        $conn = mysqli_connect("localhost", "root", "", "wasac");
+        $con = mysqli_connect("localhost", "root", "", "wasac");
          
         // Check connection
-        if($conn === false){
+        if($con === false){
             die("ERROR: Could not connect. "
                 . mysqli_connect_error());
         }
@@ -28,9 +28,9 @@
          
         // Performing insert query execution
         // here our table name is college
-        $sql = "INSERT INTO departements  VALUES ('','$depName')";
+        $sql = "INSERT INTO depertements  VALUES ('','$depName')";
          
-        if(mysqli_query($conn, $sql)){
+        if(mysqli_query($con, $sql)){
            // echo "<h3>Department Inserted in a database successfully.";
                 //. " Please browse your localhost php my admin"
                 //. " to view the updated data</h3>";
@@ -40,11 +40,11 @@
                 include_once('department.php') ;
         } else{
             echo "Error $sql. "
-                . mysqli_error($conn);
+                . mysqli_error($con);
         }
          
         // Close connection
-        mysqli_close($conn);
+        mysqli_close($con);
         ?>
     </center>
 </body>

@@ -10,5 +10,6 @@ if(mysqli_connect_errno())
     echo "connection failed";
     exit();
 }
-echo "connected successfully";
+
+
 ?>

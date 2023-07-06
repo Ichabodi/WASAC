@@ -81,16 +81,16 @@ form
     }
   }
    </style>
-<title>Request page</title>
+<title>Department page</title>
 </head>
 <body>
 <form action="new.php" method="POST">
 <div class="mainContainer">
-<label for="depName">Enter Department Name</label>
+<label for="depName">Add Department Name</label>
 <input type="text" placeholder="Enter Department Name" name="depName" required>
 <br><br>            
-<button type="submit"><i>register</i></button>
-<p class="register">Already have an account?!<a href="login.php"><b>Get in</b></a></p>
+<button type="submit"><i>save</i></button>
+
 </div>
 </form>
 </body>

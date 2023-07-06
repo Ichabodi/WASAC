@@ -26,7 +26,7 @@ button
     color: white;
     padding: 14px 20px;
     border-radius: 5px;
-    margin: 7px 0;
+   
     width: 30%;
     font-weight: bold;
     font-size: 15px;
@@ -42,6 +42,7 @@ button:hover
 form
 {
     width:35rem;
+    height: 17rem;
     margin: auto;
     color:whitesmoke;
     backdrop-filter: blur(16px) saturate(180%);
@@ -81,13 +82,13 @@ form
     }
   }
    </style>
-<title>Request page</title>
+<title>manager entry</title>
 </head>
 <body>
 <form action="man1.php" method="POST">
 <div class="mainContainer">
-<label for="Names">manager name</label>
-<input type="text" placeholder="Enter manager name" name="Names" required>
+<label for="Names">Name</label>
+<input type="text" placeholder="Enter manager name" name="name" required>
 <br><br>  
 <label for="email">email</label>
 <input type="email" placeholder="Enter the email " name="email" required>
@@ -96,7 +97,6 @@ form
 <input type="password" placeholder="Enter the password" name="password" required>
 <br><br>          
 <button type="submit"><i>register</i></button>
-<p class="register">Already have an account?!<a href="login.php"><b>Get in</b></a></p>
 </div>
 </form>
 </body>
